@@ -1,0 +1,230 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: administrador; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE administrador (
+    id integer NOT NULL,
+    nombre character varying(30) NOT NULL,
+    clave character varying(30) NOT NULL
+);
+
+
+ALTER TABLE administrador OWNER TO postgres;
+
+--
+-- Name: empleado; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE empleado (
+    id integer NOT NULL,
+    nombre character varying(30) NOT NULL,
+    tel integer NOT NULL,
+    tipo character varying(30) NOT NULL,
+    turno character varying(30) NOT NULL,
+    sueldo double precision NOT NULL
+);
+
+
+ALTER TABLE empleado OWNER TO postgres;
+
+--
+-- Name: producto; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE producto (
+    codigo integer NOT NULL,
+    nombre character varying(30) NOT NULL,
+    descripcion character varying(30) NOT NULL,
+    cantidad integer NOT NULL
+);
+
+
+ALTER TABLE producto OWNER TO postgres;
+
+--
+-- Name: proveedor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE proveedor (
+    id integer NOT NULL,
+    nombre character varying(30) NOT NULL,
+    telef integer NOT NULL,
+    direccion character varying(50) NOT NULL
+);
+
+
+ALTER TABLE proveedor OWNER TO postgres;
+
+--
+-- Name: venta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE venta (
+    nventa integer NOT NULL,
+    cproduc integer NOT NULL,
+    cempleado integer NOT NULL,
+    fecha character varying(30) NOT NULL,
+    total double precision NOT NULL
+);
+
+
+ALTER TABLE venta OWNER TO postgres;
+
+--
+-- Data for Name: administrador; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY administrador (id, nombre, clave) FROM stdin;
+11	andres	campa
+44	ceballos	sol
+14	andres	yeah
+\.
+
+
+--
+-- Data for Name: empleado; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY empleado (id, nombre, tel, tipo, turno, sueldo) FROM stdin;
+12	jose	333	cajero	matutino	800
+11	andres	444	cajero	matutino	900
+10	rosa	777	limpieza	vespertino	800
+9	raul	999	limpieza	vespertino	800
+\.
+
+
+--
+-- Data for Name: producto; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY producto (codigo, nombre, descripcion, cantidad) FROM stdin;
+62	monte	catsup	33
+63	ciel	agua	33
+64	coca	refresco	43
+65	pepsi	refresco	34
+66	electro	suero	23
+67	kloster	cerveza	34
+68	modelo	cerveza	35
+69	leon	cerveza	39
+70	bacardi	ron	33
+71	tonayan	tequila	23
+72	big	encend	30
+73	montana	cigarros	33
+74	benson	cigarros	13
+75	doritos	frituras	3
+76	sabritas	frituras	31
+77	fritos	frituras	13
+\.
+
+
+--
+-- Data for Name: proveedor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY proveedor (id, nombre, telef, direccion) FROM stdin;
+22	cocasa	123	rosales
+100	pepsica	234	mirasol
+87	mamasa	345	cerca
+55	localsa	456	madero
+66	sepapsa	567	polanco
+\.
+
+
+--
+-- Data for Name: venta; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY venta (nventa, cproduc, cempleado, fecha, total) FROM stdin;
+33	12	5	abril17	500
+44	12	11	abril17	300
+66	66	12	arbril17	200
+88	55	12	abril17	300
+78	74	11	abril17	100
+\.
+
+
+--
+-- Name: administrador_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY administrador
+    ADD CONSTRAINT administrador_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: empleado_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY empleado
+    ADD CONSTRAINT empleado_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: producto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY producto
+    ADD CONSTRAINT producto_pkey PRIMARY KEY (codigo);
+
+
+--
+-- Name: proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY proveedor
+    ADD CONSTRAINT proveedor_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: venta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY venta
+    ADD CONSTRAINT venta_pkey PRIMARY KEY (nventa);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
